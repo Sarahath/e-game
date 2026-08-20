@@ -4648,13 +4648,6 @@ function updateWorld(dt){
       const odx=other.mesh.position.x-nx,odz=other.mesh.position.z-nz;
       if(odx*odx+odz*odz<3.2){carAhead=true;break;}
     }
-    // the player's own car is a physical obstacle too — without this check
-    // traffic cars ignore it entirely and drive straight through it instead
-    // of stopping, since the loop above only ever looked at other AI cars.
-    if(!carAhead&&Car.mesh){
-      const pdx=Car.pos.x-nx,pdz=Car.pos.z-nz;
-      if(pdx*pdx+pdz*pdz<3.6)carAhead=true;
-    }
     if(carAhead)return; // close the gap instead of rear-ending the car ahead
     ai.mesh.position.set(nx,ai.mesh.position.y,nz);
     ai.mesh.rotation.y=lerp(ai.mesh.rotation.y,Math.atan2(_scratchV.x,_scratchV.z),dt*5);
